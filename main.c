@@ -11,26 +11,21 @@ typedef struct user{
 void addUser();
 void addToCsv(FILE* file, user* user_ptr, int position);
 void createCsvStructure(FILE* file, user* user_ptr, int position);
-char* lastId(FILE* file);
 
 int main(){
-    //addUser();
-    printf("%s", lastId);
+    addUser();
+    
     return 0;
 }
 
 void addUser(){
     user* user_ptr = malloc(sizeof(*user_ptr));
     char continue_saving = 's';
-    unsigned long int position;
+    unsigned long int position = 1;
     char path[512];
+    FILE* file;
+
     sprintf(path, "%s\\Documents\\Dynamic", getenv("USERPROFILE"));
-    FILE* file = fopen(path, "r");
-    if (file != NULL){
-        
-    }
-    
-    
     do
     {
         if(position > 1){
@@ -51,7 +46,7 @@ void addUser(){
         position++;
     } while (continue_saving == 's' || continue_saving == 'S');
     --position;
-    FILE* file;
+    
 
     if (_access(path, 0) == 0){
         printf("Updating...\n");
@@ -87,11 +82,4 @@ void addToCsv(FILE* file, user* user_ptr, int position){
 void createCsvStructure(FILE* file, user* user_ptr, int position){
     fprintf(file, "id;name\n");
     addToCsv(file, user_ptr, position);
-}
-
-char* lastId(FILE* file){
-    char* csvtxt;
-    fseek(file, , SEEK_END);
-    fgets(csvtxt, (int)filelength, file);
-    return csvtxt;
 }
